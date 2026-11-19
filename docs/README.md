@@ -19,11 +19,12 @@ New machine? Start with [00 — Environment Setup](00-environment-setup.md).
 |---|---|---|
 | 00 | [Environment setup (PHP 8.4, PATH, PostgreSQL)](00-environment-setup.md) | ✅ |
 | 01 | [Create project & connect PostgreSQL](lesson-01-project-and-database.md) | ✅ |
-| 02 | Request lifecycle | ⏳ next |
+| 02 | [Request lifecycle](lesson-02-request-lifecycle.md) | ✅ |
+| 03 | Routes | ⏳ next |
 
 ## Curriculum
 
-**M1 Foundations:** 1 DB & migrations ✅ · 2 Request lifecycle · 3 Routes · 4 Controllers · 5 Blade layouts & components · 6 Vite & Tailwind
+**M1 Foundations:** 1 DB & migrations ✅ · 2 Request lifecycle ✅ · 3 Routes · 4 Controllers · 5 Blade layouts & components · 6 Vite & Tailwind
 **M2 Eloquent:** 7 Migrations · 8 Models · 9 Factories & seeders · 10 Query builder vs Eloquent · 11 hasMany/belongsTo · 12 belongsToMany & polymorphic · 13 N+1 & eager loading · 14 Casts, enums, accessors · 15 Scopes · 16 PostgreSQL JSONB
 **M3 Forms:** 17 Forms & CSRF · 18 Validation & Form Requests · 19 Resource CRUD · 20 File uploads · 21 Soft deletes
 **M4 Auth:** 22 Authentication · 23 Middleware · 24 Roles · 25 Gates & policies
