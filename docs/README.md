@@ -20,7 +20,7 @@ New machine? Start with [00 — Environment Setup](00-environment-setup.md).
 | 00 | [Environment setup (PHP 8.4, PATH, PostgreSQL)](00-environment-setup.md) | ✅ |
 | 01 | [Create project & connect PostgreSQL](lesson-01-project-and-database.md) | ✅ |
 | 02 | [Request lifecycle](lesson-02-request-lifecycle.md) | ✅ |
-| 03 | Routes | ⏳ next |
+| 03 | [Routes](lesson-03-routes.md) | 🟡 in progress |
 
 ## Curriculum
 
