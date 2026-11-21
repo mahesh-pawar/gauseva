@@ -106,3 +106,5 @@ Route::get('/hello', function () {
 |---|---|
 | `php artisan serve` | Dev server (`--port=8080` if 8000 busy) |
 | `php artisan route:list` | All routes (CI4: `php spark routes`) |
+| `vendor\bin\pint --test` | Report code-style problems (Laravel's formatter, PSR-12 based) |
+| `vendor\bin\pint` | Fix them automatically — run before every commit |
