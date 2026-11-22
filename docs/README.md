@@ -12,6 +12,7 @@ php artisan serve        # http://localhost:8000
 ```
 
 New machine? Start with [00 — Environment Setup](00-environment-setup.md).
+Full plan — all 54 lessons with concept + what you build: **[ROADMAP.md](ROADMAP.md)**.
 
 ## Notes
 
@@ -24,7 +25,7 @@ New machine? Start with [00 — Environment Setup](00-environment-setup.md).
 | 04 | [Controllers](lesson-04-controllers.md) | ✅ |
 | 05 | Blade layouts & components | ⏳ next |
 
-## Curriculum
+## Curriculum (short — details in [ROADMAP.md](ROADMAP.md))
 
 **M1 Foundations:** 1 DB & migrations ✅ · 2 Request lifecycle ✅ · 3 Routes ✅ · 4 Controllers ✅ · 5 Blade layouts & components · 6 Vite & Tailwind
 **M2 Eloquent:** 7 Migrations · 8 Models · 9 Factories & seeders · 10 Query builder vs Eloquent · 11 hasMany/belongsTo · 12 belongsToMany & polymorphic · 13 N+1 & eager loading · 14 Casts, enums, accessors · 15 Scopes · 16 PostgreSQL JSONB
