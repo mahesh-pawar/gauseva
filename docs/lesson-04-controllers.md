@@ -1,6 +1,6 @@
 # Lesson 04 — Controllers
 
-**Status:** 🟡 Tasks 1–7 ✅ — questions pending (started 2026-11-22)
+**Status:** ✅ Done (2026-11-22)
 
 ## What I built
 
@@ -229,12 +229,23 @@ git diff
 
 ---
 
-## Questions (answer at the end)
+## Questions & answers
 
-1. In Task 3, you never wrote `new Request()` — how did `$request` get a value?
-2. `Admin\CowController::show(string $id)` works even though the URL says `{cow}`. What does that tell you about how Laravel passes route parameters? Why rename to `$cow` anyway?
-3. `Route::resource('cows', ...)` created a route for `create` and `edit`. Why would a JSON API (mobile app) **not** need those two? (Hint: what do they return?)
-4. CI4 controllers extend `BaseController`, which loads helpers and gives `$this->request`. Laravel's base `Controller` is empty — where do those things come from instead?
+**1. In Task 3, you never wrote `new Request()` — how did `$request` get a value?**
+**Dependency injection** by Laravel's **service container**. Before calling `show()`, Laravel reads the method's parameters (PHP reflection), sees the type hint `Request`, and passes in the request object it already created in `public/index.php` (`Request::capture()`). Works for any class type hint, in controller methods and constructors.
+CI4 comparison: `$this->request` is set for you in `initController()`; anywhere else you'd call `service('request')` (you *ask* for it). Laravel *gives* it to you because you declared you need it.
+
+**2. `show(string $id)` works with `{cow}` — what does that tell you? Why rename anyway?**
+Plain route values are passed **in order** (positionally); injected classes like `Request` don't take a slot. So the name doesn't matter for strings/ints.
+Rename anyway because: (a) readability — `{cow}` → `$cow`; (b) **route model binding** (Lesson 8) *does* use the name: `{cow}` + `Cow $cow` = Laravel loads the cow from the database automatically.
+
+**3. Why doesn't a JSON API need `create` and `edit`?**
+They return **HTML forms** ("empty form to add a cow", "filled form to edit cow 5"). A mobile app draws its own screens — it only needs the data endpoints: `index`, `store`, `show`, `update`, `destroy`. That's exactly what `Route::apiResource('cows', ...)` creates (5 routes) — Lesson 42.
+
+**4. Laravel's base `Controller` is empty — where do CI4's helpers and `$this->request` come from?**
+- **Helpers** (`route()`, `view()`, `abort()`, `config()`, `request()`, `redirect()` …) are **global functions loaded by Composer** for every request. No `helper('url')` / `$helpers = [...]` needed.
+- **Request** — inject it (`Request $request`), or call the `request()` helper, or the `Request` facade.
+- **Things that ran in `BaseController` for every controller** (auth checks, shared logic) → **middleware** on routes (Lesson 23), or traits / methods you add to `app/Http/Controllers/Controller.php` yourself.
 
 ## Useful commands
 
