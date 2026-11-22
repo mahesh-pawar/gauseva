@@ -44,3 +44,14 @@ Route::get('/products/{category?}', function (string $category = 'all') {
 Route::get('orders/{id}', function (int $id) {
     return "Order #{$id}";
 })->whereNumber('id')->name('orders.show');
+
+Route::redirect('/home', '/');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', fn () => 'Admin Dashboard')->name('dashboard');
+    Route::get('/cows', fn () => 'Cows')->name('cows');
+});
+
+Route::fallback(function () {
+    return response('<h1>404 — Page not found</h1><a href="/">Go home</a>', 404);
+});

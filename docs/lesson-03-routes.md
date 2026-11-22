@@ -1,6 +1,6 @@
 # Lesson 03 — Routes
 
-**Status:** 🟡 In progress (Tasks 1–5 ✅, Tasks 6–9 ⏳)
+**Status:** ✅ Done (2026-11-22)
 
 **Goal:** public URLs for GauSeva (`/about`, `/cows`, `/cows/{slug}`) and an admin URL group — using closures and a hardcoded array for now. Controllers come in Lesson 4, the database in Lesson 7.
 
@@ -98,13 +98,13 @@ Route::get('/cows/{slug}/orders/{id}', function (string $slug, int $id) {
 ```
 Test: `/cows/gir-gauri/orders/5` ✅, `/cows/gir-gauri/orders/abc` → 404, `/cows/GIR/orders/5` → 404.
 
-### Task 6 — Redirect ⏳
+### Task 6 — Redirect ✅
 ```php
 Route::redirect('/home', '/');
 ```
 Open `/home` → lands on `/`. (Default is 302; `Route::permanentRedirect()` = 301.)
 
-### Task 7 — Route group for admin ⏳
+### Task 7 — Route group for admin ✅
 ```php
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', fn () => 'Admin Dashboard')->name('dashboard');
@@ -113,24 +113,47 @@ Route::prefix('admin')->name('admin.')->group(function () {
 ```
 `prefix('admin')` → URLs start with `/admin`; `name('admin.')` → names start with `admin.`.
 
-### Task 8 — Custom 404 ⏳ (must be the **last** route)
+### Task 8 — Custom 404 ✅ (must be the **last** route)
 ```php
 Route::fallback(function () {
     return response('<h1>404 — Page not found</h1><a href="/">Go home</a>', 404);
 });
 ```
 
-### Task 9 — Inspect ⏳
+### Task 9 — Inspect ✅
 ```powershell
 php artisan route:list --except-vendor
 vendor\bin\pint
 ```
 Check the **Name** column: `cows.index`, `cows.show`, `admin.dashboard` …
 
-## Questions (answer at the end)
-1. What full name did the admin dashboard route get, and why?
-2. Why is `route('cows.show', 'gauri')` better than hardcoding `'/cows/gauri'`?
-3. If `Route::get('/cows/create', ...)` is added **below** `/cows/{slug}`, what does `/cows/create` show, and why?
+## Questions & answers
+1. **What full name did the admin dashboard route get, and why?**
+   `admin.dashboard` (and `admin.cows`). The group's `->name('admin.')` is a prefix joined to each route's own name. Watch the dot: `name('admin')` would give `admindashboard`.
+   `prefix('admin')` changes the **URL**, `name('admin.')` changes the **name** — two separate jobs.
+2. **Why is `route('cows.show', 'gauri')` better than hardcoding `'/cows/gauri'`?**
+   Change the URL in one place (`web.php`) and every link follows. Also: an unknown name throws an error immediately instead of making a silent broken link, and parameters are filled in for you.
+3. **If `/cows/create` is added below `/cows/{slug}`, what happens?**
+   404. Routes are matched **top to bottom, first match wins**. `{slug}` matches any text, so `create` goes to the cow-detail closure with `$slug = 'create'`, no such cow → `abort(404)`. The create route is never reached.
+   Fix: put fixed URLs **above** parameter URLs (or constrain `{slug}`). Same rule in CI4.
+
+## Final results (all tested)
+
+| URL | Status | Shows |
+|---|---|---|
+| `/home` | 302 → `/` | redirect |
+| `/admin/dashboard` | 200 | Admin Dashboard |
+| `/admin/cows` | 200 | Cows |
+| `/dashboard` | 404 | custom fallback page (no `/admin` prefix) |
+| `/xyz` | 404 | custom fallback page |
+| `/orders/abc` | 404 | custom fallback page — `whereNumber` means **no route matches**, so fallback runs |
+| `/cows/xyz` | 404 | Laravel's **default** page — a route **did** match, our code called `abort(404)`; fallback only handles URLs matching no route. Unified via `resources/views/errors/404.blade.php` in Lesson 52 |
+
+`route:list --except-vendor` → 11 routes, including `admin.dashboard`, `admin.cows`, `cows.index`, `cows.show`, `orders.show`, `products.index`, and `{fallbackPlaceholder}`.
+
+## Gotcha: VS Code undid Pint's formatting
+After Pint ran, the file came back with `' . route() . '` and `!isset` — VS Code's PHP formatter (Intelephense, PSR-12 rules) reformatted it. Two formatters with different rules fight each other.
+Pint is the source of truth for this project → run `vendor\bin\pint` right before every commit, and avoid **Format Document** (Shift+Alt+F) on PHP files, or switch the PHP formatter to a Pint extension.
 
 ## Concepts learned
 
