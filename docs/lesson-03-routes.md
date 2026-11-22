@@ -10,7 +10,7 @@
 |---|---|---|
 | Basic | `$routes->get('about', 'Pages::about');` | `Route::get('/about', ...)` |
 | View only | — | `Route::view('/about', 'about')` |
-| Parameter | `cows/(:segment)` → `$1` | `/cows/{slug}` → `function (string $slug)` (matched **by name**) |
+| Parameter | `cows/(:segment)` → `$1` | `/cows/{slug}` → `function (string $slug)` (passed **in order**; keep names identical — see Lesson 04 correction) |
 | Numbers only | `orders/(:num)` | `->whereNumber('id')` |
 | Optional | separate route | `/products/{category?}` + default value |
 | Name a route | `['as' => 'cows.show']` | `->name('cows.show')` |

@@ -21,7 +21,7 @@ New machine? Start with [00 — Environment Setup](00-environment-setup.md).
 | 01 | [Create project & connect PostgreSQL](lesson-01-project-and-database.md) | ✅ |
 | 02 | [Request lifecycle](lesson-02-request-lifecycle.md) | ✅ |
 | 03 | [Routes](lesson-03-routes.md) | ✅ |
-| 04 | Controllers | ⏳ next |
+| 04 | [Controllers](lesson-04-controllers.md) | 🟡 in progress |
 
 ## Curriculum
 
